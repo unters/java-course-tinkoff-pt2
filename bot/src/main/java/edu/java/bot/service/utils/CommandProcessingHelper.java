@@ -3,7 +3,7 @@ package edu.java.bot.service.utils;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class CommandProcessingServiceHelper {
+public class CommandProcessingHelper {
 
     private static final String WRONG_COMMAND_MESSAGE = """
             Sorry, but given command is wrong. Type `/help` to see full list of commands.
@@ -11,10 +11,11 @@ public class CommandProcessingServiceHelper {
 
     private static final String HELP_MESSAGE = """
             List of available commands:
-            - /help             Print this message.
-            - /track <url>      Track given url.
-            - /untrack <url>    Stop tracking given url.
-            - /list             Get urls being tracked.
+            - /start : Print welcome message.
+            - /help : Print this message.
+            - /track : Track given url.
+            - /untrack : Stop tracking given url.
+            - /list : Get urls being tracked.
             """;
 
     public static String getWrongCommandMessage() {

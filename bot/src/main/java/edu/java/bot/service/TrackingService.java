@@ -4,84 +4,68 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import edu.java.bot.callback.ChatStatusChangingCallback;
-import edu.java.bot.domain.ChatStatus;
+import edu.java.bot.dao.ChatStatusesDao;
+import edu.java.bot.dao.TrackingDao;
+import edu.java.bot.domain.TrackingStatus;
 import jakarta.validation.constraints.NotNull;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
 
 import static edu.java.bot.domain.ChatStatus.AWAITING_COMMAND;
 
 @Service
 public class TrackingService {
 
-    private static final Logger LOGGER = LogManager.getLogger(TrackingService.class);
-
     private final TelegramBot telegramBot;
-    private final ConcurrentMap<Long, ChatStatus> chatStatuses;
-
-    private final Map<Long, Set<String>> trackedUrls = new HashMap<>();
+    private final TrackingDao trackingDao;
+    private final ChatStatusesDao chatStatusesDao;
 
     public TrackingService(
             TelegramBot telegramBot,
-            ConcurrentMap<Long, ChatStatus> chatStatuses
-
+            TrackingDao trackingDao,
+            ChatStatusesDao chatStatusesDao
     ) {
         this.telegramBot = telegramBot;
-        this.chatStatuses = chatStatuses;
+        this.trackingDao = trackingDao;
+        this.chatStatusesDao = chatStatusesDao;
     }
 
     public void trackUrl(@NotNull Update update) {
         Long chatId = update.message().chat().id();
         String url = update.message().text();
+        // TODO: add url validation logic.
+        TrackingStatus trackingStatus = trackingDao.addTracking(chatId, url);
 
-        // TODO: validate url.
-
-        if (!trackedUrls.containsKey(chatId)) {
-            trackedUrls.put(chatId, new HashSet<>());
-        }
-
-        Set<String> chatTrackedUrls = trackedUrls.get(chatId);
-        if (chatTrackedUrls.contains(url)) {
-            SendMessage sendMessage = new SendMessage(chatId, "Given url is already being tracked.");
-            telegramBot.execute(sendMessage, new ChatStatusChangingCallback(chatId, AWAITING_COMMAND, chatStatuses));
-        } else {
-            chatTrackedUrls.add(url);
-            SendMessage sendMessage = new SendMessage(chatId, "Given url has been added to set of tracked urls.");
-            telegramBot.execute(sendMessage, new ChatStatusChangingCallback(chatId, AWAITING_COMMAND, chatStatuses));
-        }
+        // TODO: move messages to TrackingHelper.
+        String responseMessage = switch (trackingStatus) {
+            case TRACK_ADDED -> "Given url has been added to set of tracked urls.";
+            case IS_ALREADY_TRACKED -> "Given url is already being tracked.";
+            default -> throw new RuntimeException("Unexpected tracking status in addTracking().");
+        };
+        SendMessage sendMessage = new SendMessage(chatId, responseMessage);
+        telegramBot.execute(sendMessage, new ChatStatusChangingCallback(chatId, AWAITING_COMMAND, chatStatusesDao));
     }
 
     public void untrackUrl(@NotNull Update update) {
         Long chatId = update.message().chat().id();
         String url = update.message().text();
+        // TODO: add url validation logic.
+        TrackingStatus trackingStatus = trackingDao.removeTracking(chatId, url);
 
-        // TODO: validate url?
-
-        Set<String> chatTrackedUrls = trackedUrls.get(chatId);
-        if (chatTrackedUrls == null) {
-            SendMessage sendMessage = new SendMessage(chatId, "No urls are being tracked yet.");
-            telegramBot.execute(sendMessage, new ChatStatusChangingCallback(chatId, AWAITING_COMMAND, chatStatuses));
-        } else if (!chatTrackedUrls.contains(url)) {
-            SendMessage sendMessage = new SendMessage(chatId, "Given url is not being tracked. Nothing removed.");
-            telegramBot.execute(sendMessage, new ChatStatusChangingCallback(chatId, AWAITING_COMMAND, chatStatuses));
-        } else {
-            chatTrackedUrls.remove(url);
-            SendMessage sendMessage = new SendMessage(chatId, "Given url has been removed from set of tracked urls.");
-            telegramBot.execute(sendMessage, new ChatStatusChangingCallback(chatId, AWAITING_COMMAND, chatStatuses));
-        }
+        // TODO: move messages to TrackingHelper.
+        String responseMessage = switch (trackingStatus) {
+            case TRACK_REMOVED -> "Given url has been removed from set of tracked urls.";
+            case IS_NOT_TRACKED -> "Given url is not being tracked. Nothing removed.";
+            default -> throw new RuntimeException("Unexpected tracking status in removeTracking().");
+        };
+        SendMessage sendMessage = new SendMessage(chatId, responseMessage);
+        telegramBot.execute(sendMessage, new ChatStatusChangingCallback(chatId, AWAITING_COMMAND, chatStatusesDao));
     }
 
     public void getTrackings(@NotNull Update update) {
         Long chatId = update.message().chat().id();
-        Set<String> chatTrackedUrls = trackedUrls.get(chatId);
-
+        Set<String> chatTrackedUrls = trackingDao.getTrackings(chatId);
         if (chatTrackedUrls == null || chatTrackedUrls.isEmpty()) {
             SendMessage sendMessage = new SendMessage(chatId, "No urls are being tracked yet.");
             telegramBot.execute(sendMessage);

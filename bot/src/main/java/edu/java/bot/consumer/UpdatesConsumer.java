@@ -1,7 +1,6 @@
 package edu.java.bot.consumer;
 
 import com.pengrad.telegrambot.model.Update;
-import edu.java.bot.service.CommandProcessingService;
 import edu.java.bot.service.UpdateProcessingService;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotNull;
@@ -67,6 +66,7 @@ public class UpdatesConsumer {
         return new Builder();
     }
 
+    @SuppressWarnings("MagicNumber")
     public static class Builder {
         private int corePoolSize = 6;
         private int maxPoolSize = 12;

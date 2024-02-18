@@ -5,7 +5,6 @@ import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Update;
 import edu.java.bot.consumer.UpdatesConsumer;
 import edu.java.bot.domain.ChatStatus;
-import edu.java.bot.service.CommandProcessingService;
 import edu.java.bot.service.UpdateProcessingService;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
@@ -15,9 +14,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
