@@ -17,15 +17,16 @@ public class UpdateProcessingService {
     private final ChatStatusesDao chatStatusesDao;
 
     public UpdateProcessingService(
-            CommandProcessingService commandProcessingService,
-            TrackingService trackingService,
-            ChatStatusesDao chatStatusesDao
+        CommandProcessingService commandProcessingService,
+        TrackingService trackingService,
+        ChatStatusesDao chatStatusesDao
     ) {
         this.commandProcessingService = commandProcessingService;
         this.trackingService = trackingService;
         this.chatStatusesDao = chatStatusesDao;
     }
 
+    @SuppressWarnings("MissingSwitchDefault")
     public void processUpdate(@NotNull Update update) {
         Long chatId = update.message().from().id();
         switch (chatStatusesDao.getChatStatus(chatId)) {

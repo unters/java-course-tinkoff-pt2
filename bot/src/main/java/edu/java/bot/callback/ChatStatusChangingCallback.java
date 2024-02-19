@@ -5,7 +5,6 @@ import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.SendResponse;
 import edu.java.bot.dao.ChatStatusesDao;
 import edu.java.bot.domain.ChatStatus;
-
 import java.io.IOException;
 
 public class ChatStatusChangingCallback implements Callback<SendMessage, SendResponse> {
@@ -15,9 +14,9 @@ public class ChatStatusChangingCallback implements Callback<SendMessage, SendRes
     private final ChatStatusesDao chatStatusesDao;
 
     public ChatStatusChangingCallback(
-            Long chatId,
-            ChatStatus chatStatus,
-            ChatStatusesDao chatStatusesDao
+        Long chatId,
+        ChatStatus chatStatus,
+        ChatStatusesDao chatStatusesDao
     ) {
         this.chatId = chatId;
         this.chatStatus = chatStatus;

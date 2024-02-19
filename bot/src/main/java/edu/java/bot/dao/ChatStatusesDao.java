@@ -1,11 +1,9 @@
 package edu.java.bot.dao;
 
 import edu.java.bot.domain.ChatStatus;
-import org.springframework.stereotype.Repository;
-
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-
+import org.springframework.stereotype.Repository;
 import static edu.java.bot.domain.ChatStatus.AWAITING_COMMAND;
 
 @Repository

@@ -20,15 +20,16 @@ public class CommandProcessingService {
     private final ChatStatusesDao chatStatusesDao;
 
     public CommandProcessingService(
-            TelegramBot telegramBot,
-            TrackingService trackingService,
-            ChatStatusesDao chatStatusesDao
+        TelegramBot telegramBot,
+        TrackingService trackingService,
+        ChatStatusesDao chatStatusesDao
     ) {
         this.telegramBot = telegramBot;
         this.trackingService = trackingService;
         this.chatStatusesDao = chatStatusesDao;
     }
 
+    @SuppressWarnings("MissingSwitchDefault")
     public void processCommand(@NotNull Update update) {
         String message = update.message().text();
         Command command = CommandParser.resolveCommand(message);
@@ -67,8 +68,8 @@ public class CommandProcessingService {
         String message = "Please, enter the url to track.";
         SendMessage request = new SendMessage(chatId, message);
         telegramBot.execute(
-                request,
-                new ChatStatusChangingCallback(chatId, ChatStatus.AWAITING_URL_TO_TRACK, chatStatusesDao)
+            request,
+            new ChatStatusChangingCallback(chatId, ChatStatus.AWAITING_URL_TO_TRACK, chatStatusesDao)
         );
     }
 
@@ -77,8 +78,8 @@ public class CommandProcessingService {
         String message = "Please, enter the url to untrack.";
         SendMessage request = new SendMessage(chatId, message);
         telegramBot.execute(
-                request,
-                new ChatStatusChangingCallback(chatId, ChatStatus.AWAITING_URL_TO_UNTRACK, chatStatusesDao)
+            request,
+            new ChatStatusChangingCallback(chatId, ChatStatus.AWAITING_URL_TO_UNTRACK, chatStatusesDao)
         );
     }
 

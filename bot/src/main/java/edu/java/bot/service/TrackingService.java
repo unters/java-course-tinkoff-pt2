@@ -8,10 +8,8 @@ import edu.java.bot.dao.ChatStatusesDao;
 import edu.java.bot.dao.TrackingDao;
 import edu.java.bot.domain.TrackingStatus;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.stereotype.Service;
-
 import java.util.Set;
-
+import org.springframework.stereotype.Service;
 import static edu.java.bot.domain.ChatStatus.AWAITING_COMMAND;
 
 @Service
@@ -22,9 +20,9 @@ public class TrackingService {
     private final ChatStatusesDao chatStatusesDao;
 
     public TrackingService(
-            TelegramBot telegramBot,
-            TrackingDao trackingDao,
-            ChatStatusesDao chatStatusesDao
+        TelegramBot telegramBot,
+        TrackingDao trackingDao,
+        ChatStatusesDao chatStatusesDao
     ) {
         this.telegramBot = telegramBot;
         this.trackingDao = trackingDao;

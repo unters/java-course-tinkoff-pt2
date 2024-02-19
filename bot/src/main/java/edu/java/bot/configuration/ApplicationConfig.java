@@ -6,6 +6,11 @@ import com.pengrad.telegrambot.model.Update;
 import edu.java.bot.consumer.UpdatesConsumer;
 import edu.java.bot.domain.ChatStatus;
 import edu.java.bot.service.UpdateProcessingService;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.LinkedBlockingQueue;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,12 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.LinkedBlockingQueue;
 
 @Configuration
 @EnableConfigurationProperties(ApplicationProperties.class)
@@ -34,7 +33,7 @@ public class ApplicationConfig {
 
     @Bean
     public UpdatesListener updatesListener(
-            BlockingQueue<Update> updatesQueue
+        BlockingQueue<Update> updatesQueue
     ) {
         return new UpdatesListener() {
 
@@ -53,7 +52,6 @@ public class ApplicationConfig {
         };
     }
 
-
     @Bean
     public BlockingQueue<Runnable> queue() {
         return new LinkedBlockingQueue<>();
@@ -61,20 +59,20 @@ public class ApplicationConfig {
 
     @Bean
     public UpdatesConsumer updatesHandler(
-            BlockingQueue<Runnable> queue,
-            BlockingQueue<Update> updatesQueue,
-            UpdateProcessingService updateProcessingService
+        BlockingQueue<Runnable> queue,
+        BlockingQueue<Update> updatesQueue,
+        UpdateProcessingService updateProcessingService
     ) {
         return UpdatesConsumer.builder()
-                .queue(queue)
-                .updatesQueue(updatesQueue)
-                .updateProcessingService(updateProcessingService)
-                .build();
+            .queue(queue)
+            .updatesQueue(updatesQueue)
+            .updateProcessingService(updateProcessingService)
+            .build();
     }
 
     @Bean
     public TelegramBot telegramBot(
-            UpdatesListener updatesListener
+        UpdatesListener updatesListener
     ) {
         TelegramBot bot = new TelegramBot(applicationProperties.telegramToken());
         bot.setUpdatesListener(updatesListener);

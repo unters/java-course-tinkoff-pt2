@@ -5,13 +5,12 @@ import edu.java.bot.service.UpdateProcessingService;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /* TODO: move validation logic in UpdatesHandler constructor.  */
 public class UpdatesConsumer {
@@ -23,13 +22,13 @@ public class UpdatesConsumer {
     private final UpdateProcessingService updateProcessingService;
 
     public UpdatesConsumer(
-            @Positive int corePoolSize,
-            int maxPoolSize,
-            @Positive long keepAliveTime,
-            @NotNull TimeUnit unit,
-            @NotNull BlockingQueue<Runnable> queue,
-            @NotNull BlockingQueue<Update> updatesQueue,
-            @NotNull UpdateProcessingService updateProcessingService
+        @Positive int corePoolSize,
+        int maxPoolSize,
+        @Positive long keepAliveTime,
+        @NotNull TimeUnit unit,
+        @NotNull BlockingQueue<Runnable> queue,
+        @NotNull BlockingQueue<Update> updatesQueue,
+        @NotNull UpdateProcessingService updateProcessingService
     ) {
         if (maxPoolSize < corePoolSize) {
             throw new IllegalArgumentException("maxPoolSize cannot be less than corePoolSize");
@@ -38,11 +37,11 @@ public class UpdatesConsumer {
         this.updatesQueue = updatesQueue;
         this.updateProcessingService = updateProcessingService;
         executorService = new ThreadPoolExecutor(
-                corePoolSize,
-                maxPoolSize,
-                keepAliveTime,
-                unit,
-                queue
+            corePoolSize,
+            maxPoolSize,
+            keepAliveTime,
+            unit,
+            queue
         );
     }
 
@@ -116,13 +115,13 @@ public class UpdatesConsumer {
 
         public UpdatesConsumer build() {
             return new UpdatesConsumer(
-                    this.corePoolSize,
-                    this.maxPoolSize,
-                    this.keepAliveTime,
-                    this.unit,
-                    this.queue,
-                    this.updatesQueue,
-                    this.updateProcessingService
+                this.corePoolSize,
+                this.maxPoolSize,
+                this.keepAliveTime,
+                this.unit,
+                this.queue,
+                this.updatesQueue,
+                this.updateProcessingService
             );
         }
     }

@@ -3,10 +3,9 @@ package edu.java.bot.callback;
 import com.pengrad.telegrambot.Callback;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.SendResponse;
+import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
 
 public class LoggingCallback implements Callback<SendMessage, SendResponse> {
 

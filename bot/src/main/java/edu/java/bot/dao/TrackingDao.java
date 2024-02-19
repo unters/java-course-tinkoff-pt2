@@ -1,14 +1,15 @@
 package edu.java.bot.dao;
 
 import edu.java.bot.domain.TrackingStatus;
-import org.springframework.stereotype.Repository;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import static edu.java.bot.domain.TrackingStatus.*;
+import org.springframework.stereotype.Repository;
+import static edu.java.bot.domain.TrackingStatus.IS_ALREADY_TRACKED;
+import static edu.java.bot.domain.TrackingStatus.IS_NOT_TRACKED;
+import static edu.java.bot.domain.TrackingStatus.TRACK_ADDED;
+import static edu.java.bot.domain.TrackingStatus.TRACK_REMOVED;
 
 @Repository
 public class TrackingDao {
