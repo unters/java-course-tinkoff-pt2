@@ -1,4 +1,4 @@
-package edu.java.dto.github;
+package edu.scrapper.dto.github;
 
 import lombok.Getter;
 import lombok.ToString;

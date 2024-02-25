@@ -1,10 +1,10 @@
-package edu.java.service.client;
+package edu.scrapper.service.client;
 
-import edu.java.dto.github.PullRequestCommentTo;
+import edu.scrapper.dto.github.PullRequestCommentTo;
+import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
-import java.util.List;
 
 @HttpExchange
 public interface GitHubClient {
