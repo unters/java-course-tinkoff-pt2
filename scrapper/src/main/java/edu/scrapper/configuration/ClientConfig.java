@@ -1,6 +1,6 @@
 package edu.scrapper.configuration;
 
-import edu.scrapper.service.client.GitHubClient;
+import edu.scrapper.client.github.GitHubClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.function.client.WebClient;

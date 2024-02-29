@@ -1,9 +1,10 @@
-package edu.scrapper.service.client;
+package edu.scrapper.client;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
-import edu.scrapper.dto.github.PullRequestCommentTo;
+import edu.scrapper.client.github.dto.CommentTo;
 import java.util.List;
+import edu.scrapper.client.github.GitHubClient;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -75,7 +76,7 @@ public class GitHubClientTest {
         );
 
         // when
-        List<PullRequestCommentTo> comments = gitHubClient.getPullRequestComments("alyx", "multitool-firmware", 13);
+        List<CommentTo> comments = gitHubClient.getPullRequestComments("alyx", "multitool-firmware", 13, null);
 
         // then
         assertThat(comments.size()).isEqualTo(2);
