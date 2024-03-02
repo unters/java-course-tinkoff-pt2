@@ -1,0 +1,22 @@
+[
+    {
+        "id": 10,
+        "body": "Great stuff!",
+        "user": {
+            "id": 167237,
+            "login": "Russell"
+        },
+        "updated_at": "2020-04-14T16:00:49Z",
+        "created_at": "2020-04-14T16:00:49Z"
+    },
+    {
+        "id": 10,
+        "body": "What's the purpose of this method?",
+        "user": {
+            "id": 167237,
+            "login": "ilaiii"
+        },
+        "updated_at": "2020-04-14T17:33:02Z",
+        "created_at": "2020-04-14T17:33:02Z"
+    }
+]

@@ -16,8 +16,8 @@ public interface GitHubClient {
     /**
      * List open issues in the repository.
      */
-    default List<IssueTo> getRepositoryIssue(String user, String repository) {
-        return getRepositoryIssue(user, repository, null);
+    default List<IssueTo> getRepositoryIssues(String user, String repository) {
+        return getRepositoryIssues(user, repository, null);
     }
 
     /**
@@ -34,7 +34,7 @@ public interface GitHubClient {
      *                       the given time will be returned.
      */
     @GetExchange("/issues")
-    List<IssueTo> getRepositoryIssue(
+    List<IssueTo> getRepositoryIssues(
         @PathVariable("user")
         String user,
         @PathVariable("repo")
