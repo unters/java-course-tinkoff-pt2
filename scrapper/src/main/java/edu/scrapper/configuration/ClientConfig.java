@@ -13,10 +13,13 @@ public class ClientConfig {
     @Bean
     public GitHubClient gitHubClient(
         @Value("${client.github.url:https://api.github.com}")
-        String url
+        String url,
+        @Value("${client.github.token}")
+        String token
     ) {
         WebClient client = WebClient.builder()
             .baseUrl(url)
+            .defaultHeader("Authorization", "Bearer %s".formatted(token))
             .build();
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(client)).build();
         return factory.createClient(GitHubClient.class);
