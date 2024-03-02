@@ -15,6 +15,21 @@ public interface GitHubClient {
 
     /**
      * List open issues in the repository.
+     */
+    default List<IssueTo> getRepositoryIssue(String user, String repository) {
+        return getRepositoryIssue(user, repository, null);
+    }
+
+    /**
+     * Get authors and creation dates of all comments in the pull request.
+     */
+    default List<CommentTo> getPullRequestComments(String user, String repository, Integer pullNumber) {
+        return getPullRequestComments(user, repository, pullNumber, null);
+    }
+
+    /**
+     * List open issues in the repository.
+     *
      * @param lastUpdateTime timestamp in ISO-8601 format. If specified, only results that were last updated after
      *                       the given time will be returned.
      */
@@ -40,7 +55,8 @@ public interface GitHubClient {
     );
 
     /**
-     * Get authors and creation dates of all comments in the pull request published after specified date.
+     * Get authors and creation dates of all comments in the pull request.
+     *
      * @param lastUpdateTime timestamp in ISO-8601 format. If specified, only results that were last updated after
      *                       the given time will be returned.
      */
