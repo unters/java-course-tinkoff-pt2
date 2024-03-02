@@ -1,6 +1,7 @@
 package edu.scrapper.configuration;
 
 import edu.scrapper.client.github.GitHubClient;
+import edu.scrapper.client.stackoverflow.StackOverflowClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -19,5 +20,17 @@ public class ClientConfig {
             .build();
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(client)).build();
         return factory.createClient(GitHubClient.class);
+    }
+
+    @Bean
+    public StackOverflowClient stackOverflowClient(
+        @Value("${client.stack-overflow.url:https://api.stackexchange.com/2.3?site=stackoverflow}")
+        String url
+    ) {
+        WebClient client = WebClient.builder()
+            .baseUrl(url)
+            .build();
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(client)).build();
+        return factory.createClient(StackOverflowClient.class);
     }
 }
