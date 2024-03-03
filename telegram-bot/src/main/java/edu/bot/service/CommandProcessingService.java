@@ -3,9 +3,9 @@ package edu.bot.service;
 import edu.bot.client.telegram.TelegramClient;
 import edu.bot.client.telegram.dto.SendMessageTo;
 import edu.bot.domain.Command;
-import edu.bot.dto.request.UpdateTo;
-import edu.bot.utils.CommandParser;
-import edu.bot.utils.CommandProcessingHelper;
+import edu.bot.dto.request.update.UpdateTo;
+import edu.bot.utils.command.CommandParser;
+import edu.bot.utils.command.CommandProcessingHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

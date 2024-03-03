@@ -4,7 +4,7 @@ import edu.bot.client.scrapper.ScrapperClient;
 import edu.bot.client.telegram.TelegramClient;
 import edu.bot.client.telegram.dto.SendMessageTo;
 import edu.bot.dao.TrackingDao;
-import edu.bot.dto.request.UpdateTo;
+import edu.bot.dto.request.update.UpdateTo;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;

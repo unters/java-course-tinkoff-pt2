@@ -1,13 +1,13 @@
 package edu.bot.service;
 
 import edu.bot.dao.ChatStatusDao;
-import edu.bot.dto.request.UpdateTo;
+import edu.bot.dto.request.update.UpdateTo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UpdateProcessingService {
+public class UpdatesProcessingService {
 
     private final CommandProcessingService commandProcessingService;
     private final TrackingService trackingService;
