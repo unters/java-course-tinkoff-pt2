@@ -1,6 +1,5 @@
 package edu.bot.dto.request.event.github;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import edu.bot.domain.EventType;

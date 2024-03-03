@@ -3,7 +3,6 @@ package edu.bot.service;
 import edu.bot.client.telegram.TelegramClient;
 import edu.bot.client.telegram.dto.SendMessageTo;
 import edu.bot.dto.request.event.AbstractEventTo;
-import edu.bot.dto.request.event.github.NewIssueEventTo;
 import edu.bot.utils.transformer.EventToMessageTransformer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
