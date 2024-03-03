@@ -1,7 +1,6 @@
 package edu.bot.service;
 
-import edu.bot.client.telegram.TelegramClient;
-import edu.bot.client.telegram.dto.SendMessageTo;
+import edu.bot.dao.ChatStatusDao;
 import edu.bot.dto.request.UpdateTo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,17 +9,17 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UpdateProcessingService {
 
-    private final TelegramClient telegramClient;
+    private final CommandProcessingService commandProcessingService;
+    private final TrackingService trackingService;
+    private final ChatStatusDao chatStatusDao;
 
+    @SuppressWarnings("MissingSwitchDefault")
     public void processUpdate(UpdateTo update) {
-        echo(update);
-    }
-
-    public void echo(UpdateTo update) {
-        SendMessageTo sendMessageTo = new SendMessageTo(
-            update.message().chat().chatId(),
-            update.message().text()
-        );
-        telegramClient.sendMessage(sendMessageTo);
+        Long chatId = update.message().chat().chatId();
+        switch (chatStatusDao.getChatStatus(chatId)) {
+            case AWAITING_COMMAND -> commandProcessingService.processCommand(update);
+            case AWAITING_URL_TO_TRACK -> trackingService.trackUrl(update);
+            case AWAITING_URL_TO_UNTRACK -> trackingService.untrackUrl(update);
+        }
     }
 }

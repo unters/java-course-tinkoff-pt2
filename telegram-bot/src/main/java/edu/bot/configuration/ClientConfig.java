@@ -1,5 +1,6 @@
 package edu.bot.configuration;
 
+import edu.bot.client.scrapper.ScrapperClient;
 import edu.bot.client.telegram.TelegramClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,7 @@ import org.springframework.web.reactive.function.client.support.WebClientAdapter
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 @Configuration
+@SuppressWarnings("MultipleStringLiterals")
 public class ClientConfig {
 
     @Bean
@@ -25,5 +27,18 @@ public class ClientConfig {
             .build();
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(client)).build();
         return factory.createClient(TelegramClient.class);
+    }
+
+    @Bean
+    public ScrapperClient scrapperClient(
+        @Value("${client.scrapper.url}")
+        String url
+    ) {
+        WebClient client = WebClient.builder()
+            .baseUrl(url)
+            .defaultHeader("Content-Type", "application/json")
+            .build();
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(client)).build();
+        return factory.createClient(ScrapperClient.class);
     }
 }
