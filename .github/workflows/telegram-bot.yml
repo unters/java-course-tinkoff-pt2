@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - .github/workflows/bot.yml
-      - bot/**
+      - .github/workflows/telegram-telegram-bot.yml
+      - telegram-bot/**
 
 jobs:
   build:
@@ -23,13 +23,13 @@ jobs:
           cache: maven
 
       - name: maven build
-        run: mvn -pl bot -am package
+        run: mvn -pl telegram-bot -am package
 
       - id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
         if: ( github.event_name != 'workflow_dispatch' )
         with:
-          paths: ${{ github.workspace }}/bot/target/site/jacoco/jacoco.xml
+          paths: ${{ github.workspace }}/telegram-bot/target/site/jacoco/jacoco.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 30
           min-coverage-changed-files: 30
@@ -48,7 +48,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - run: mvn -pl bot -am checkstyle:check
+      - run: mvn -pl telegram-bot -am checkstyle:check
 
   integration-test:
     name: integration tests
@@ -62,4 +62,4 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - run: mvn -pl bot -am verify -Dskip.unit.tests=true
+      - run: mvn -pl telegram-bot -am verify -Dskip.unit.tests=true

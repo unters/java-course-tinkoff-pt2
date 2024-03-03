@@ -1,9 +1,9 @@
-package edu.bot.dto.request.event.github;
+package edu.common.dto.event.github;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import edu.bot.domain.EventType;
-import edu.bot.dto.request.event.AbstractEventTo;
+import edu.common.domain.EventType;
+import edu.common.dto.event.AbstractEventTo;
 import lombok.Getter;
 import lombok.ToString;
 

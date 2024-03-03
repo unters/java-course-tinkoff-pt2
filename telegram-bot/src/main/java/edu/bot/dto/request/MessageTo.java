@@ -1,4 +1,4 @@
-package edu.bot.dto.request.update;
+package edu.bot.dto.request;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

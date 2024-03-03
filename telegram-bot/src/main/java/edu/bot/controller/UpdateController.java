@@ -1,6 +1,6 @@
 package edu.bot.controller;
 
-import edu.bot.dto.request.update.UpdateTo;
+import edu.bot.dto.request.UpdateTo;
 import edu.bot.service.UpdatesProcessingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "update", description = "Updates handling Api (for telegram webhook).")
 @RestController
 @RequiredArgsConstructor
-public class UpdatesController {
+public class UpdateController {
 
     private final UpdatesProcessingService updateProcessingService;
 

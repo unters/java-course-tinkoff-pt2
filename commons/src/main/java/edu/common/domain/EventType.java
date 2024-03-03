@@ -1,4 +1,4 @@
-package edu.bot.domain;
+package edu.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

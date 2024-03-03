@@ -1,6 +1,6 @@
 package edu.bot.utils.transformer;
 
-import edu.bot.dto.request.event.AbstractEventTo;
+import edu.common.dto.event.AbstractEventTo;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

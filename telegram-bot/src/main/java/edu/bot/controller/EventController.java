@@ -1,7 +1,7 @@
 package edu.bot.controller;
 
-import edu.bot.dto.request.event.AbstractEventTo;
 import edu.bot.service.EventService;
+import edu.common.dto.event.AbstractEventTo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "event", description = "Events sending Api")
 @RestController
 @RequiredArgsConstructor
-public class EventsController {
+public class EventController {
 
     private final EventService eventService;
 
