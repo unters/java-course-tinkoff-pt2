@@ -46,7 +46,7 @@
     </properties>
 
     <modules>
-        <module>bot</module>
+        <module>telegram-bot</module>
         <module>scrapper</module>
     </modules>
 

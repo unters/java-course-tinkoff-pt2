@@ -9,7 +9,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>bot</artifactId>
+    <artifactId>telegram-bot</artifactId>
     <version>${revision}</version>
 
     <dependencies>
@@ -41,12 +41,6 @@
         <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
-        </dependency>
-
-        <!-- Telegram -->
-        <dependency>
-            <groupId>com.github.pengrad</groupId>
-            <artifactId>java-telegram-bot-api</artifactId>
         </dependency>
 
         <!-- Dev Tools -->
