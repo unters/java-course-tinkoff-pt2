@@ -1,5 +1,6 @@
 package edu.scrapper.configuration;
 
+import edu.scrapper.client.bot.BotClient;
 import edu.scrapper.client.github.GitHubClient;
 import edu.scrapper.client.stackoverflow.StackOverflowClient;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +10,18 @@ import org.springframework.web.reactive.function.client.support.WebClientAdapter
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 public class ClientConfig {
+
+    @Bean
+    public BotClient botClient(
+        @Value("${client.bot.url:http://localhost:8042}")
+        String url
+    ) {
+        WebClient client = WebClient.builder()
+            .baseUrl(url)
+            .build();
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(WebClientAdapter.create(client)).build();
+        return factory.createClient(BotClient.class);
+    }
 
     @Bean
     public GitHubClient gitHubClient(

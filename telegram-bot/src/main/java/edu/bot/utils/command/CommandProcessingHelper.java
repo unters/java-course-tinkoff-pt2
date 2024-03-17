@@ -1,4 +1,4 @@
-package edu.bot.utils;
+package edu.bot.utils.command;
 
 import lombok.experimental.UtilityClass;
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UpdateProcessingService {
+public class UpdatesProcessingService {
 
     private final CommandProcessingService commandProcessingService;
     private final TrackingService trackingService;
