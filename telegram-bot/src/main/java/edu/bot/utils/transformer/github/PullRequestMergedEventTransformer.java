@@ -2,10 +2,12 @@ package edu.bot.utils.transformer.github;
 
 import edu.bot.utils.transformer.EventTransformer;
 import edu.common.domain.EventType;
-import edu.common.dto.event.AbstractEventTo;
+import edu.common.dto.event.github.PullRequestMergedEventTo;
 import static edu.common.domain.EventType.PULL_MERGED;
 
-public class PullRequestMergedEventTransformer implements EventTransformer {
+public class PullRequestMergedEventTransformer implements EventTransformer<PullRequestMergedEventTo> {
+
+    private static final String MESSAGE_TEMPLATE = "Pull request *\"%s\"* has been merged.";
 
     @Override
     public EventType suitableFor() {
@@ -13,7 +15,7 @@ public class PullRequestMergedEventTransformer implements EventTransformer {
     }
 
     @Override
-    public String transformToMessage(AbstractEventTo eventTo) {
-        return eventTo.toString();
+    public String transformToMessage(PullRequestMergedEventTo eventTo) {
+        return MESSAGE_TEMPLATE.formatted(eventTo.getPullRequestTitle());
     }
 }

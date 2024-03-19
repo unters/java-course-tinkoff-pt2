@@ -9,7 +9,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @Configuration
 public class PersistenceConfiguration {
 
-//    private static final String POSTGRES_DRIVER_CLASSNAME = "org.postgres.jdbc.Driver";
     private static final String POSTGRES_URL_PREFIX = "jdbc:postgresql";
 
     @Bean
@@ -24,7 +23,6 @@ public class PersistenceConfiguration {
         String password
     ) {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(POSTGRES_DRIVER_CLASSNAME);
         dataSource.setUrl("%s://%s/%s".formatted(POSTGRES_URL_PREFIX, host, database));
         dataSource.setUsername(username);
         dataSource.setPassword(password);

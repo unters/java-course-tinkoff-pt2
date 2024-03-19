@@ -2,10 +2,10 @@ package edu.bot.utils.transformer.stackoverflow;
 
 import edu.bot.utils.transformer.EventTransformer;
 import edu.common.domain.EventType;
-import edu.common.dto.event.AbstractEventTo;
+import edu.common.dto.event.stackoverflow.NewQuestionAnswerEventTo;
 import static edu.common.domain.EventType.QUESTION_ANSWER;
 
-public class NewQuestionAnswerEventTransformer implements EventTransformer {
+public class NewQuestionAnswerEventTransformer implements EventTransformer<NewQuestionAnswerEventTo> {
 
     @Override
     public EventType suitableFor() {
@@ -13,7 +13,7 @@ public class NewQuestionAnswerEventTransformer implements EventTransformer {
     }
 
     @Override
-    public String transformToMessage(AbstractEventTo eventTo) {
+    public String transformToMessage(NewQuestionAnswerEventTo eventTo) {
         return eventTo.toString();
     }
 }
