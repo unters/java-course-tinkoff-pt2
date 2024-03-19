@@ -5,12 +5,17 @@ import edu.bot.client.telegram.dto.SendMessageTo;
 import edu.bot.dao.ChatStatusDao;
 import edu.bot.domain.ChatStatus;
 import edu.bot.dto.request.UpdateTo;
+import edu.bot.utils.command.CommandParser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import static edu.bot.domain.Command.START;
 
 @Service
 @RequiredArgsConstructor
 public class UpdatesProcessingService {
+
+    private static final String WELCOME_MESSAGE = "Welcome! Enter /help to see list of commands.";
+    private static final String ENTER_START_MESSAGE = "Please, enter /start to start using bot.";
 
     private final TelegramClient telegramClient;
     private final CommandProcessingService commandProcessingService;
@@ -22,9 +27,14 @@ public class UpdatesProcessingService {
         Long chatId = update.message().chat().chatId();
         ChatStatus chatStatus = chatStatusDao.getChatStatus(chatId);
         if (chatStatus == null) {
-            chatStatusDao.upsertChatStatus(chatId, ChatStatus.AWAITING_COMMAND);
-            SendMessageTo sendMessageTo = new SendMessageTo(chatId, "Welcome! Enter /help to see list of commands.");
-            telegramClient.sendMessage(sendMessageTo);
+            if (START.equals(CommandParser.resolveCommand(update.message().text()))) {
+                chatStatusDao.upsertChatStatus(chatId, ChatStatus.AWAITING_COMMAND);
+                SendMessageTo sendMessageTo = new SendMessageTo(chatId, WELCOME_MESSAGE);
+                telegramClient.sendMessage(sendMessageTo);
+            } else {
+                SendMessageTo sendMessageTo = new SendMessageTo(chatId, ENTER_START_MESSAGE);
+                telegramClient.sendMessage(sendMessageTo);
+            }
         }
 
         switch (chatStatus) {
