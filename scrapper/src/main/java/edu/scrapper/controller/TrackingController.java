@@ -39,6 +39,7 @@ public class TrackingController {
         trackingService.untrackUrl(trackingDataTo);
     }
 
+    @SuppressWarnings("MagicNumber")
     @ExceptionHandler(TrackingDataValidationException.class)
     public ResponseEntity handleException(TrackingDataValidationException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatusCode.valueOf(422));

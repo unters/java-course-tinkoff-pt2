@@ -1,11 +1,12 @@
 package edu.scrapper.dao;
 
+import java.util.Map;
+import javax.sql.DataSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import javax.sql.DataSource;
-import java.util.Map;
 
 @Repository
+@SuppressWarnings("MultipleStringLiterals")
 public class TrackingDao {
 
     private static final String SQL_ADD_TRACKING = "INSERT INTO link(url, chat_id) VALUES(:url, :chat_id)";
@@ -22,14 +23,14 @@ public class TrackingDao {
     public void trackUrl(long chatId, String url) {
         jdbcTemplate.update(
             SQL_ADD_TRACKING,
-            Map.of("url", url, "url", chatId)
+            Map.of("url", url, "chat_id", chatId)
         );
     }
 
     public void untrackUrl(long chatId, String url) {
         jdbcTemplate.update(
             SQL_REMOVE_TRACKING,
-            Map.of("url", url, "url", chatId)
+            Map.of("url", url, "chat_id", chatId)
         );
     }
 }
