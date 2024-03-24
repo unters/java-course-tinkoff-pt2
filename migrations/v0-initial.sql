@@ -9,6 +9,8 @@ CREATE TABLE chat (
     status          chat_status NOT NULL DEFAULT 'awaiting_command'
 );
 
+CREATE CAST (varchar AS chat_status) WITH INOUT AS IMPLICIT;
+
 CREATE TABLE link (
     id              serial      PRIMARY KEY,
     url             bigint      NOT NULL,

@@ -5,7 +5,9 @@ import edu.bot.client.telegram.TelegramClient;
 import edu.bot.client.telegram.dto.SendMessageTo;
 import edu.bot.dao.TrackingDao;
 import edu.bot.dto.request.UpdateTo;
-import java.util.Set;
+import edu.common.dto.tracking.TrackingDataTo;
+import java.net.URI;
+import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,7 @@ public class TrackingService {
     public void trackUrl(UpdateTo update) {
         Long chatId = update.message().chat().chatId();
         String url = update.message().text();
-        ResponseEntity<?> response = scrapperClient.trackUrl(chatId, url);
+        ResponseEntity<?> response = scrapperClient.trackUrl(new TrackingDataTo(chatId, URI.create(url)));
         String responseMessage = switch (response.getStatusCode()) {
             case ACCEPTED -> "Tracking has been successfully added.";
             case UNPROCESSABLE_ENTITY -> INVALID_URL_RESPONSE_MESSAGE;
@@ -40,8 +42,7 @@ public class TrackingService {
     public void untrackUrl(UpdateTo update) {
         Long chatId = update.message().chat().chatId();
         String url = update.message().text();
-        scrapperClient.untrackUrl(chatId, url);
-        ResponseEntity<?> response = scrapperClient.untrackUrl(chatId, url);
+        ResponseEntity<?> response = scrapperClient.untrackUrl(new TrackingDataTo(chatId, URI.create(url)));
         String responseMessage = switch (response.getStatusCode()) {
             case ACCEPTED -> "Url has been successfully removed from set of tracked urls.";
             case UNPROCESSABLE_ENTITY -> INVALID_URL_RESPONSE_MESSAGE;
@@ -53,8 +54,11 @@ public class TrackingService {
 
     public void getTrackings(UpdateTo update) {
         Long chatId = update.message().chat().chatId();
-        Set<String> trackings = trackingDao.getTrackings(chatId);
-        SendMessageTo sendMessageTo = new SendMessageTo(chatId, trackings.stream().collect(Collectors.joining("\n")));
+        List<String> trackings = trackingDao.getTrackings(chatId);
+        String message = trackings.isEmpty()
+            ? "No urls are being tracked yet."
+            : trackings.stream().collect(Collectors.joining("\n"));
+        SendMessageTo sendMessageTo = new SendMessageTo(chatId, message);
         telegramClient.sendMessage(sendMessageTo);
     }
 }
