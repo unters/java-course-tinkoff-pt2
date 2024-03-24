@@ -26,6 +26,7 @@
 
         <!-- Persistence -->
         <postgresql.version>42.7.3</postgresql.version>
+        <hibernate-jpa.version>1.0.2.Final</hibernate-jpa.version>
 
         <!-- Other -->
         <jetbrains-annotations.version>24.1.0</jetbrains-annotations.version>
@@ -116,6 +117,11 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>${hibernate-jpa.version}</version>
         </dependency>
 
         <!-- Tests -->
