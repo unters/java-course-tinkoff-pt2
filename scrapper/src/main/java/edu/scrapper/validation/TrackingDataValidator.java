@@ -2,8 +2,8 @@ package edu.scrapper.validation;
 
 import edu.common.dto.tracking.TrackingDataTo;
 import edu.scrapper.exception.TrackingDataValidationException;
-import lombok.experimental.UtilityClass;
 import java.net.URI;
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class TrackingDataValidator {
