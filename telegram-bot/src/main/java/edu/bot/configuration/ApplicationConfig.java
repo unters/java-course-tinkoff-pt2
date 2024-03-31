@@ -9,6 +9,7 @@ import edu.bot.utils.transformer.github.PullRequestMergedEventTransformer;
 import edu.bot.utils.transformer.stackoverflow.NewAnswerCommentEventTransformer;
 import edu.bot.utils.transformer.stackoverflow.NewQuestionAnswerEventTransformer;
 import edu.bot.utils.transformer.stackoverflow.NewQuestionCommentEventTransformer;
+import edu.common.configuration.WebMvcConfiguration;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,7 @@ import org.springframework.retry.annotation.EnableRetry;
 
 @Configuration
 @EnableRetry
-@Import({ClientConfig.class, PersistenceConfiguration.class})
+@Import({ClientConfig.class, PersistenceConfiguration.class, WebMvcConfiguration.class})
 public class ApplicationConfig {
 
     @Bean

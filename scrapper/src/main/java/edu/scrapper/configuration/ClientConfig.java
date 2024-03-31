@@ -59,6 +59,7 @@ public class ClientConfig {
     }
 
     @Bean
+    @SuppressWarnings("MagicNumber")
     public RetryTemplate retryTemplate(
         @Value("${client.backoff.policy:fixed}")
         String backOffPolicyValue,

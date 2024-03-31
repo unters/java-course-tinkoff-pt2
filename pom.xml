@@ -34,6 +34,7 @@
         <jetbrains-annotations.version>24.1.0</jetbrains-annotations.version>
         <java-telegram-bot-api.version>7.0.1</java-telegram-bot-api.version>
         <apache-commons.version>3.14.0</apache-commons.version>
+        <jakarta.sevlet-api.version>6.1.0-M2</jakarta.sevlet-api.version>
 
         <!-- Tests -->
         <testcontainers.version>1.19.4</testcontainers.version>
@@ -55,6 +56,9 @@
         <!-- Swagger -->
         <swagger-annotations.version>2.1.6</swagger-annotations.version>
         <springdoc-openapi-ui.version>1.7.0</springdoc-openapi-ui.version>
+
+        <!-- Rate Limiting -->
+        <bucket4j.version>8.1.0</bucket4j.version>
     </properties>
 
     <modules>
@@ -123,6 +127,11 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>${apache-commons.version}</version>
             </dependency>
+            <dependency>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>${jakarta.sevlet-api.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -181,6 +190,13 @@
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
             <version>1.6.12</version>
+        </dependency>
+
+        <!-- Rate Limiting -->
+        <dependency>
+            <groupId>com.bucket4j</groupId>
+            <artifactId>bucket4j-core</artifactId>
+            <version>${bucket4j.version}</version>
         </dependency>
     </dependencies>
 
