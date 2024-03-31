@@ -27,6 +27,7 @@
         <!-- Persistence -->
         <postgresql.version>42.7.3</postgresql.version>
         <hibernate-jpa.version>1.0.2.Final</hibernate-jpa.version>
+        <hibernate-core.version>4.3.5.Final</hibernate-core.version>
 
         <!-- Other -->
         <jetbrains-annotations.version>24.1.0</jetbrains-annotations.version>
@@ -106,6 +107,13 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- Persistence -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate-core.version}</version>
             </dependency>
 
             <!-- Other -->

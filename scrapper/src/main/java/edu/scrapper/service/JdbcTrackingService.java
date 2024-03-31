@@ -3,9 +3,7 @@ package edu.scrapper.service;
 import edu.common.dto.tracking.TrackingDataTo;
 import edu.scrapper.dao.TrackingDao;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
 public class JdbcTrackingService implements TrackingService {
 
