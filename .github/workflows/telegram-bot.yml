@@ -6,6 +6,7 @@ on:
     paths:
       - .github/workflows/telegram-telegram-bot.yml
       - telegram-bot/**
+      - commons/**
 
 jobs:
   build:
