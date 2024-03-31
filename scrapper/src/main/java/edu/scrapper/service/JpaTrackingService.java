@@ -5,10 +5,14 @@ import edu.scrapper.jpa.HibernateSessionFactoryUtil;
 import edu.scrapper.jpa.Tracking;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+@RequiredArgsConstructor
 public class JpaTrackingService implements TrackingService {
+
+    private final HibernateSessionFactoryUtil hibernateSessionFactoryUtil;
 
     @Override
     public void trackUrl(TrackingDataTo trackingDataTo) {
@@ -17,7 +21,7 @@ public class JpaTrackingService implements TrackingService {
         tracking.setUrl(trackingDataTo.getUrl().toString());
         tracking.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
 
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = hibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
         session.save(tracking);
         tx1.commit();
@@ -26,7 +30,7 @@ public class JpaTrackingService implements TrackingService {
 
     @Override
     public void untrackUrl(TrackingDataTo trackingDataTo) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = hibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
         session.createQuery("DELETE FROM Tracking WHERE chat_id = :chat_id AND url = :url")
             .setParameter("chat_id", trackingDataTo.getChatId())

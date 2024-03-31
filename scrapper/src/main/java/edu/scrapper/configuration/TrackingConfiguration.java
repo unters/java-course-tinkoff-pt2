@@ -1,6 +1,7 @@
 package edu.scrapper.configuration;
 
 import edu.scrapper.dao.TrackingDao;
+import edu.scrapper.jpa.HibernateSessionFactoryUtil;
 import edu.scrapper.service.JdbcTrackingService;
 import edu.scrapper.service.JpaTrackingService;
 import edu.scrapper.service.TrackingService;
@@ -17,10 +18,11 @@ public class TrackingConfiguration {
     @Bean
     public TrackingService trackingService(
         @Value("${tracking.service.implementation}") String trackingServiceImplementation,
+        HibernateSessionFactoryUtil hibernateSessionFactoryUtil,
         TrackingDao trackingDao
     ) {
         if ("jpa".equals(trackingServiceImplementation)) {
-            return new JpaTrackingService();
+            return new JpaTrackingService(hibernateSessionFactoryUtil);
         }
         if ("jdbc".equals(trackingServiceImplementation)) {
             return new JdbcTrackingService(trackingDao);
