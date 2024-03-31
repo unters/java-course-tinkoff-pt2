@@ -26,10 +26,12 @@
 
         <!-- Persistence -->
         <postgresql.version>42.7.3</postgresql.version>
+        <hibernate-jpa.version>1.0.2.Final</hibernate-jpa.version>
 
         <!-- Other -->
         <jetbrains-annotations.version>24.1.0</jetbrains-annotations.version>
         <java-telegram-bot-api.version>7.0.1</java-telegram-bot-api.version>
+        <apache-commons.version>3.14.0</apache-commons.version>
 
         <!-- Tests -->
         <testcontainers.version>1.19.4</testcontainers.version>
@@ -76,6 +78,11 @@
                 <artifactId>wiremock-standalone</artifactId>
                 <version>${wiremock-standalone.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.1-api</artifactId>
+                <version>${hibernate-jpa.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.testcontainers</groupId>
@@ -99,6 +106,13 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- Other -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${apache-commons.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

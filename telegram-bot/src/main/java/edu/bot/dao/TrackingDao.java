@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public class TrackingDao {
 
     private static final String SQL_SELECT_ALL_CHAT_TRACKINGS =
-        "SELECT url FROM link WHERE chat_id = :chat_id";
+        "SELECT url FROM tracking WHERE chat_id = :chat_id";
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 

@@ -5,6 +5,7 @@ import edu.scrapper.client.github.dto.IssueTo;
 import edu.scrapper.client.github.dto.PullTo;
 import edu.scrapper.client.github.dto.ReviewTo;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.service.annotation.GetExchange;
@@ -89,7 +90,7 @@ public interface GitHubClient {
      * Check if pull request has been merged.
      */
     @GetExchange("/pulls/{pullNumber}/merge")
-    void checkIfPullRequestHasBeenMerged(
+    ResponseEntity<?> checkIfPullRequestHasBeenMerged(
         @PathVariable("user")
         String user,
         @PathVariable("repo")
