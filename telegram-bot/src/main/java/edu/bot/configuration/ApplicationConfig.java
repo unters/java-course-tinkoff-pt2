@@ -13,8 +13,10 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.retry.annotation.EnableRetry;
 
 @Configuration
+@EnableRetry
 @Import({ClientConfig.class, PersistenceConfiguration.class})
 public class ApplicationConfig {
 
