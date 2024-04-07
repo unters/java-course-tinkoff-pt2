@@ -6,7 +6,6 @@ import edu.common.dto.event.github.NewIssueEventTo;
 import edu.common.dto.event.github.NewPullRequestCommentEventTo;
 import edu.common.dto.event.github.NewPullRequestReviewEventTo;
 import edu.common.dto.event.github.PullRequestMergedEventTo;
-import edu.scrapper.client.bot.BotClient;
 import edu.scrapper.client.github.GitHubClient;
 import edu.scrapper.client.github.dto.CommentTo;
 import edu.scrapper.client.github.dto.IssueTo;
@@ -14,6 +13,7 @@ import edu.scrapper.client.github.dto.ReviewTo;
 import edu.scrapper.dao.TrackingDao;
 import edu.scrapper.domain.EventGroup;
 import edu.scrapper.domain.TrackingData;
+import edu.scrapper.service.EventSendingService;
 import edu.scrapper.utils.LinkParser;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -41,7 +41,7 @@ public class LinkUpdateScheduler {
 
     private final TrackingDao trackingDao;
     private final GitHubClient gitHubClient;
-    private final BotClient botClient;
+    private final EventSendingService eventSendingService;
 
     @Scheduled(fixedDelayString = "${scheduler.interval.in.seconds}", timeUnit = TimeUnit.SECONDS)
     public void update() {
@@ -50,8 +50,8 @@ public class LinkUpdateScheduler {
             Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
             List<AbstractEventTo> events = getUpdates(entry.url(), entry.updatedAt());
             for (var event : events) {
-                // TODO: add check for response code.
-                botClient.sendEventData(entry.chatId(), event);
+                // TODO: add check for sending result.
+                eventSendingService.send(entry.chatId(), event);
                 trackingDao.updateTrackingTime(entry.chatId(), entry.url(), timestamp);
             }
         }
