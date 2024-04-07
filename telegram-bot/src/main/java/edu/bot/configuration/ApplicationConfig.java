@@ -18,7 +18,12 @@ import org.springframework.retry.annotation.EnableRetry;
 
 @Configuration
 @EnableRetry
-@Import({ClientConfig.class, PersistenceConfiguration.class, WebMvcConfiguration.class})
+@Import({
+    ClientConfig.class,
+    PersistenceConfiguration.class,
+    WebMvcConfiguration.class,
+    KafkaConfiguration.class
+})
 public class ApplicationConfig {
 
     @Bean

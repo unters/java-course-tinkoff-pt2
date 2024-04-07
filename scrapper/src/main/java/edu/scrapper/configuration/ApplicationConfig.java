@@ -23,7 +23,8 @@ import org.springframework.retry.annotation.EnableRetry;
 @Import({
     ClientConfig.class,
     PersistenceConfiguration.class,
-    WebMvcConfiguration.class
+    WebMvcConfiguration.class,
+    KafkaConfiguration.class
 })
 public class ApplicationConfig {
 
