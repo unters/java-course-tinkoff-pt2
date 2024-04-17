@@ -27,7 +27,7 @@ public class ChatStatusDao {
     public void upsertChatStatus(Long chatId, ChatStatus chatStatus) {
         jdbcTemplate.update(
             SQL_UPSERT_CHAT_STATUS,
-            Map.of("id", chatId, "status", chatStatus.toString().toLowerCase())
+            Map.of("id", chatId, "status", chatStatus.toString())
         );
     }
 
