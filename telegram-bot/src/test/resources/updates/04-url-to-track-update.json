@@ -1,0 +1,12 @@
+{
+    "update_id": 4,
+    "message": {
+        "message_id": 4,
+        "date": 4,
+        "chat": {
+            "chat_id": 42,
+            "type": "chat"
+        },
+        "text": "https://github.com/unters/java-course-tinkoff-pt2/pull/10"
+    }
+}
