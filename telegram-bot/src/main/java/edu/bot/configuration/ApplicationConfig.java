@@ -11,6 +11,8 @@ import edu.bot.utils.transformer.stackoverflow.NewQuestionAnswerEventTransformer
 import edu.bot.utils.transformer.stackoverflow.NewQuestionCommentEventTransformer;
 import edu.common.configuration.WebMvcConfiguration;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -18,13 +20,13 @@ import org.springframework.retry.annotation.EnableRetry;
 
 @Configuration
 @EnableRetry
-@Import({
-    ClientConfig.class,
-    PersistenceConfiguration.class,
-    WebMvcConfiguration.class,
-    KafkaConfiguration.class
-})
+@Import(WebMvcConfiguration.class)
 public class ApplicationConfig {
+
+    @Bean
+    public ResourceBundle telegramMessages() {
+        return ResourceBundle.getBundle("message/telegram/messages", Locale.ROOT);
+    }
 
     @Bean
     public List<EventTransformer> eventTransformers() {

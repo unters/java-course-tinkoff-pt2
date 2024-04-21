@@ -17,7 +17,7 @@ public class UpdateController {
 
     private final UpdatesProcessingService updateProcessingService;
 
-    @Operation(summary = "Handle new message from the chat.", tags = "update")
+    @Operation(summary = "handle new message from the chat", tags = "update")
     @ApiResponse(
         responseCode = "200",
         description = "Event data sent"

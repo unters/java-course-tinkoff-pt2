@@ -1,7 +1,5 @@
 package edu.bot.service;
 
-import edu.bot.client.telegram.TelegramClient;
-import edu.bot.client.telegram.dto.SendMessageTo;
 import edu.bot.utils.transformer.EventTransformer;
 import edu.common.domain.EventType;
 import edu.common.dto.event.AbstractEventTo;
@@ -14,21 +12,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class EventService {
 
-    private final TelegramClient telegramClient;
+    private final TelegramService telegramService;
     private final Map<EventType, EventTransformer> eventTransformerMap;
 
     public EventService(
-        TelegramClient telegramClient,
+        TelegramService telegramService,
         List<EventTransformer> eventTransformers
     ) {
-        this.telegramClient = telegramClient;
+        this.telegramService = telegramService;
         this.eventTransformerMap = buildEventTransformerMap(eventTransformers);
     }
 
     public void sendEvent(Long chatId, AbstractEventTo eventTo) {
         EventTransformer eventTransformer = resolveEventTransformer(eventTo);
         String message = eventTransformer.transformToMessage(eventTo);
-        telegramClient.sendMessage(new SendMessageTo(chatId, message));
+        telegramService.sendMessage(chatId, message);
     }
 
     private Map<EventType, EventTransformer> buildEventTransformerMap(List<EventTransformer> eventTransformers) {

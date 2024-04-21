@@ -3,6 +3,7 @@ package edu.bot.controller;
 import edu.bot.client.telegram.TelegramClient;
 import edu.bot.client.telegram.dto.SendMessageTo;
 import edu.bot.service.EventService;
+import edu.bot.service.TelegramService;
 import edu.bot.utils.transformer.EventTransformer;
 import edu.bot.utils.transformer.github.NewIssueEventTransformer;
 import java.nio.file.Files;
@@ -98,10 +99,10 @@ public class EventControllerTest {
 
         @Bean
         public EventService eventService(
-            TelegramClient telegramClient,
+            TelegramService telegramService,
             List<EventTransformer> eventTransformers
         ) {
-            return new EventService(telegramClient, eventTransformers);
+            return new EventService(telegramService, eventTransformers);
         }
     }
 }

@@ -1,8 +1,6 @@
 package edu.bot.service;
 
 import edu.bot.client.scrapper.ScrapperClient;
-import edu.bot.client.telegram.TelegramClient;
-import edu.bot.client.telegram.dto.SendMessageTo;
 import edu.bot.dao.ChatStatusDao;
 import edu.bot.dao.TrackingDao;
 import edu.bot.domain.ChatStatus;
@@ -10,6 +8,7 @@ import edu.bot.dto.request.UpdateTo;
 import edu.common.dto.tracking.TrackingDataTo;
 import java.net.URI;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +20,12 @@ import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 @RequiredArgsConstructor
 public class TrackingService {
 
-    private static final String INVALID_URL_RESPONSE_MESSAGE = "Invalid url.";
-    private static final String SERVER_ERROR_RESPONSE_MESSAGE = "Server error.";
+    private static final String ERROR_MESSAGE_PROPERTY = "tracking.service.error.message";
 
-    private final TelegramClient telegramClient;
+    private final ResourceBundle telegramMessages;
+
     private final ScrapperClient scrapperClient;
+    private final TelegramService telegramService;
     private final ChatStatusDao chatStatusDao;
     private final TrackingDao trackingDao;
 
@@ -34,12 +34,11 @@ public class TrackingService {
         String url = update.message().text();
         ResponseEntity<?> response = scrapperClient.trackUrl(new TrackingDataTo(chatId, URI.create(url)));
         String responseMessage = switch (response.getStatusCode()) {
-            case ACCEPTED -> "Tracking has been successfully added.";
-            case UNPROCESSABLE_ENTITY -> INVALID_URL_RESPONSE_MESSAGE;
-            default -> SERVER_ERROR_RESPONSE_MESSAGE;
+            case ACCEPTED -> telegramMessages.getString("tracking.url.to.track.accepted.message");
+            case UNPROCESSABLE_ENTITY -> telegramMessages.getString("tracking.url.to.track.invalid.message");
+            default -> telegramMessages.getString(ERROR_MESSAGE_PROPERTY);
         };
-        SendMessageTo sendMessageTo = new SendMessageTo(chatId, responseMessage);
-        telegramClient.sendMessage(sendMessageTo);
+        telegramService.sendMessage(chatId, responseMessage);
         chatStatusDao.upsertChatStatus(chatId, ChatStatus.AWAITING_COMMAND);
     }
 
@@ -48,12 +47,11 @@ public class TrackingService {
         String url = update.message().text();
         ResponseEntity<?> response = scrapperClient.untrackUrl(new TrackingDataTo(chatId, URI.create(url)));
         String responseMessage = switch (response.getStatusCode()) {
-            case ACCEPTED -> "Url has been successfully removed from set of tracked urls.";
-            case UNPROCESSABLE_ENTITY -> INVALID_URL_RESPONSE_MESSAGE;
-            default -> SERVER_ERROR_RESPONSE_MESSAGE;
+            case ACCEPTED -> telegramMessages.getString("tracking.url.to.untrack.accepted.message");
+            case UNPROCESSABLE_ENTITY -> telegramMessages.getString("tracking.url.to.untrack.invalid.message");
+            default -> telegramMessages.getString(ERROR_MESSAGE_PROPERTY);
         };
-        SendMessageTo sendMessageTo = new SendMessageTo(chatId, responseMessage);
-        telegramClient.sendMessage(sendMessageTo);
+        telegramService.sendMessage(chatId, responseMessage);
         chatStatusDao.upsertChatStatus(chatId, ChatStatus.AWAITING_COMMAND);
     }
 
@@ -61,10 +59,9 @@ public class TrackingService {
         Long chatId = update.message().chat().chatId();
         List<String> trackings = trackingDao.getTrackings(chatId);
         String message = trackings.isEmpty()
-            ? "No urls are being tracked yet."
+            ? telegramMessages.getString("tracking.empty.list.message")
             : trackings.stream().collect(Collectors.joining("\n"));
-        SendMessageTo sendMessageTo = new SendMessageTo(chatId, message);
-        telegramClient.sendMessage(sendMessageTo);
+        telegramService.sendMessage(chatId, message);
         chatStatusDao.upsertChatStatus(chatId, ChatStatus.AWAITING_COMMAND);
     }
 }
