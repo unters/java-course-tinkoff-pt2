@@ -1,6 +1,6 @@
-package edu.bot.utils.transformer.github;
+package edu.bot.transformer.event.github;
 
-import edu.bot.utils.transformer.EventTransformer;
+import edu.bot.transformer.event.EventTransformer;
 import edu.common.domain.EventType;
 import edu.common.dto.event.github.NewIssueEventTo;
 import static edu.common.domain.EventType.ISSUE;

@@ -1,6 +1,6 @@
 package edu.bot.service;
 
-import edu.bot.utils.transformer.EventTransformer;
+import edu.bot.transformer.event.EventTransformer;
 import edu.common.domain.EventType;
 import edu.common.dto.event.AbstractEventTo;
 import java.util.List;

@@ -1,4 +1,4 @@
-package edu.bot.utils.transformer;
+package edu.bot.transformer.event;
 
 import edu.common.domain.EventType;
 import edu.common.dto.event.AbstractEventTo;

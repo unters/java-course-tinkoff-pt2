@@ -3,7 +3,7 @@ package edu.bot.service;
 import edu.bot.dao.ChatStatusDao;
 import edu.bot.domain.Command;
 import edu.bot.dto.request.UpdateTo;
-import edu.bot.utils.command.CommandParser;
+import edu.bot.utils.CommandParser;
 import java.util.ResourceBundle;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

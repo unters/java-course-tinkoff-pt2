@@ -1,14 +1,14 @@
 package edu.bot.configuration;
 
-import edu.bot.utils.transformer.EventTransformer;
-import edu.bot.utils.transformer.github.NewIssueEventTransformer;
-import edu.bot.utils.transformer.github.NewPullRequestCommentEventTransformer;
-import edu.bot.utils.transformer.github.NewPullRequestEventTransformer;
-import edu.bot.utils.transformer.github.NewPullRequestReviewEventTransformer;
-import edu.bot.utils.transformer.github.PullRequestMergedEventTransformer;
-import edu.bot.utils.transformer.stackoverflow.NewAnswerCommentEventTransformer;
-import edu.bot.utils.transformer.stackoverflow.NewQuestionAnswerEventTransformer;
-import edu.bot.utils.transformer.stackoverflow.NewQuestionCommentEventTransformer;
+import edu.bot.transformer.event.EventTransformer;
+import edu.bot.transformer.event.github.NewIssueEventTransformer;
+import edu.bot.transformer.event.github.NewPullRequestCommentEventTransformer;
+import edu.bot.transformer.event.github.NewPullRequestEventTransformer;
+import edu.bot.transformer.event.github.NewPullRequestReviewEventTransformer;
+import edu.bot.transformer.event.github.PullRequestMergedEventTransformer;
+import edu.bot.transformer.event.stackoverflow.NewAnswerCommentEventTransformer;
+import edu.bot.transformer.event.stackoverflow.NewQuestionAnswerEventTransformer;
+import edu.bot.transformer.event.stackoverflow.NewQuestionCommentEventTransformer;
 import edu.common.configuration.WebMvcConfiguration;
 import java.util.List;
 import java.util.Locale;

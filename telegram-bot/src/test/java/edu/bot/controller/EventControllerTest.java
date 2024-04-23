@@ -4,8 +4,8 @@ import edu.bot.client.telegram.TelegramClient;
 import edu.bot.client.telegram.dto.SendMessageTo;
 import edu.bot.service.EventService;
 import edu.bot.service.TelegramService;
-import edu.bot.utils.transformer.EventTransformer;
-import edu.bot.utils.transformer.github.NewIssueEventTransformer;
+import edu.bot.transformer.event.EventTransformer;
+import edu.bot.transformer.event.github.NewIssueEventTransformer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -90,6 +90,11 @@ public class EventControllerTest {
         @Bean
         public TelegramClient telegramClient() {
             return mock(TelegramClient.class);
+        }
+
+        @Bean
+        public TelegramService telegramService(TelegramClient telegramClient) {
+            return new TelegramService(telegramClient);
         }
 
         @Bean
