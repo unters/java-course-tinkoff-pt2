@@ -1,5 +1,6 @@
 package edu.scrapper.configuration;
 
+import edu.scrapper.jpa.HibernateSessionFactoryUtil;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -27,5 +28,19 @@ public class PersistenceConfiguration {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
         return dataSource;
+    }
+
+    @Bean HibernateSessionFactoryUtil hibernateSessionFactoryUtil(
+        @Value("${postgres.host}")
+        String host,
+        @Value("${postgres.database:tracking}")
+        String database,
+        @Value("${postgres.username:postgres}")
+        String username,
+        @Value("${postgres.password:postgres}")
+        String password
+    ) {
+        String connectionUrl = "jdbc:postgresql://%s/%s".formatted(host, database);
+        return new HibernateSessionFactoryUtil(connectionUrl, username, password);
     }
 }
