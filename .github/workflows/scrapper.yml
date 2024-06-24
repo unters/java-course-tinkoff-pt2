@@ -28,6 +28,20 @@ jobs:
       - name: maven build
         run: mvn -pl scrapper -am package
 
+      - name: log in to the Github container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: build docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: scrapper/
+          push: true
+          tags: ghcr.io/unters/scrapper:latest
+
       - id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
         if: ( github.event_name != 'workflow_dispatch' )
