@@ -8,6 +8,7 @@ public record ReviewTo(
     UserTo user,
     String body,
     String state,
+    String pullRequestUrl,
     String updatedAt,
     String createdAt
 ) {
