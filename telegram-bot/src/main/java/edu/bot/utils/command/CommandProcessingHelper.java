@@ -10,7 +10,6 @@ public class CommandProcessingHelper {
         """;
     private static final String HELP_MESSAGE = """
         List of available commands:
-        - /start : Print welcome message.
         - /help : Print this message.
         - /track : Track given url.
         - /untrack : Stop tracking given url.

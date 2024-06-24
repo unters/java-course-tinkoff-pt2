@@ -1,0 +1,12 @@
+{
+    "update_id": 1,
+    "message": {
+        "message_id": 1,
+        "date": 1,
+        "chat": {
+            "chat_id": 42,
+            "type": "chat"
+        },
+        "text": "Hi, r u rly a bot?"
+    }
+}

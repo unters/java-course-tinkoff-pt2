@@ -68,7 +68,8 @@ public class CommandProcessingService {
         Long chatId = update.message().chat().chatId();
         chatStatusDao.upsertChatStatus(chatId, AWAITING_URL_TO_UNTRACK);
         String message = "Please, enter the url to untrack.";
-        SendMessageTo request = new SendMessageTo(chatId, message);
+        SendMessageTo sendMessageTo = new SendMessageTo(chatId, message);
+        telegramClient.sendMessage(sendMessageTo);
     }
 
     // TODO: remove inline url widgets from response messages.

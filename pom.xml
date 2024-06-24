@@ -40,6 +40,7 @@
         <testcontainers.version>1.19.4</testcontainers.version>
         <wiremock.version>3.3.1</wiremock.version>
         <wiremock-standalone.version>3.0.1</wiremock-standalone.version>
+        <junit.version>5.10.2</junit.version>
 
         <!-- Plugins -->
         <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
@@ -59,6 +60,11 @@
 
         <!-- Rate Limiting -->
         <bucket4j.version>8.1.0</bucket4j.version>
+
+        <!-- Monitoring -->
+        <spring-boot-starter-actuator.version>3.2.4</spring-boot-starter-actuator.version>
+        <micrometer-registry-prometheus.version>1.12.5</micrometer-registry-prometheus.version>
+        <micrometer-tracing-bridge-brave.version>1.2.5</micrometer-tracing-bridge-brave.version>
     </properties>
 
     <modules>
@@ -121,6 +127,14 @@
                 <version>${hibernate-core.version}</version>
             </dependency>
 
+            <!-- Tests -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring-boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+
             <!-- Other -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -135,11 +149,12 @@
         </dependencies>
     </dependencyManagement>
 
-    <dependencies><dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-aspects</artifactId>
-        <version>${spring-aspects.version}</version>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring-aspects.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
@@ -167,16 +182,19 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -197,6 +215,23 @@
             <groupId>com.bucket4j</groupId>
             <artifactId>bucket4j-core</artifactId>
             <version>${bucket4j.version}</version>
+        </dependency>
+
+        <!-- Monitoring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring-boot-starter-actuator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <version>${micrometer-registry-prometheus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+            <version>${micrometer-tracing-bridge-brave.version}</version>
         </dependency>
     </dependencies>
 

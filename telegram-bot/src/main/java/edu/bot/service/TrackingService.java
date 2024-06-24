@@ -3,7 +3,9 @@ package edu.bot.service;
 import edu.bot.client.scrapper.ScrapperClient;
 import edu.bot.client.telegram.TelegramClient;
 import edu.bot.client.telegram.dto.SendMessageTo;
+import edu.bot.dao.ChatStatusDao;
 import edu.bot.dao.TrackingDao;
+import edu.bot.domain.ChatStatus;
 import edu.bot.dto.request.UpdateTo;
 import edu.common.dto.tracking.TrackingDataTo;
 import java.net.URI;
@@ -24,6 +26,7 @@ public class TrackingService {
 
     private final TelegramClient telegramClient;
     private final ScrapperClient scrapperClient;
+    private final ChatStatusDao chatStatusDao;
     private final TrackingDao trackingDao;
 
     public void trackUrl(UpdateTo update) {
@@ -37,6 +40,7 @@ public class TrackingService {
         };
         SendMessageTo sendMessageTo = new SendMessageTo(chatId, responseMessage);
         telegramClient.sendMessage(sendMessageTo);
+        chatStatusDao.upsertChatStatus(chatId, ChatStatus.AWAITING_COMMAND);
     }
 
     public void untrackUrl(UpdateTo update) {
@@ -50,6 +54,7 @@ public class TrackingService {
         };
         SendMessageTo sendMessageTo = new SendMessageTo(chatId, responseMessage);
         telegramClient.sendMessage(sendMessageTo);
+        chatStatusDao.upsertChatStatus(chatId, ChatStatus.AWAITING_COMMAND);
     }
 
     public void getTrackings(UpdateTo update) {
@@ -60,5 +65,6 @@ public class TrackingService {
             : trackings.stream().collect(Collectors.joining("\n"));
         SendMessageTo sendMessageTo = new SendMessageTo(chatId, message);
         telegramClient.sendMessage(sendMessageTo);
+        chatStatusDao.upsertChatStatus(chatId, ChatStatus.AWAITING_COMMAND);
     }
 }

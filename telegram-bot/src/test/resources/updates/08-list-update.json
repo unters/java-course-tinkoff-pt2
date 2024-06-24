@@ -1,0 +1,12 @@
+{
+    "update_id": 8,
+    "message": {
+        "message_id": 8,
+        "date": 8,
+        "chat": {
+            "chat_id": 42,
+            "type": "chat"
+        },
+        "text": "/list"
+    }
+}

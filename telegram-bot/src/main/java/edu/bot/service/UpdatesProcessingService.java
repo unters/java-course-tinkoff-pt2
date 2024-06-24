@@ -35,12 +35,12 @@ public class UpdatesProcessingService {
                 SendMessageTo sendMessageTo = new SendMessageTo(chatId, ENTER_START_MESSAGE);
                 telegramClient.sendMessage(sendMessageTo);
             }
-        }
-
-        switch (chatStatus) {
-            case AWAITING_COMMAND -> commandProcessingService.processCommand(update);
-            case AWAITING_URL_TO_TRACK -> trackingService.trackUrl(update);
-            case AWAITING_URL_TO_UNTRACK -> trackingService.untrackUrl(update);
+        } else {
+            switch (chatStatus) {
+                case AWAITING_COMMAND -> commandProcessingService.processCommand(update);
+                case AWAITING_URL_TO_TRACK -> trackingService.trackUrl(update);
+                case AWAITING_URL_TO_UNTRACK -> trackingService.untrackUrl(update);
+            }
         }
     }
 }
