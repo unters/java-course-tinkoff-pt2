@@ -2,6 +2,7 @@ package edu.bot.client.telegram;
 
 import edu.bot.client.telegram.dto.SendMessageTo;
 import org.springframework.http.ResponseEntity;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.service.annotation.HttpExchange;
 import org.springframework.web.service.annotation.PostExchange;
@@ -10,6 +11,7 @@ import org.springframework.web.service.annotation.PostExchange;
 public interface TelegramClient {
 
     @PostExchange("/sendMessage")
+    @Retryable
     ResponseEntity<?> sendMessage(
         @RequestBody
         SendMessageTo message
