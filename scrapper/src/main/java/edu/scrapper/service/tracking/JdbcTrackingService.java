@@ -1,7 +1,8 @@
-package edu.scrapper.service;
+package edu.scrapper.service.tracking;
 
 import edu.common.dto.tracking.TrackingDataTo;
 import edu.scrapper.dao.TrackingDao;
+import edu.scrapper.service.TrackingService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

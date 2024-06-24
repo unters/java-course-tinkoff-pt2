@@ -1,8 +1,9 @@
-package edu.scrapper.service;
+package edu.scrapper.service.tracking;
 
 import edu.common.dto.tracking.TrackingDataTo;
 import edu.scrapper.jpa.HibernateSessionFactoryUtil;
 import edu.scrapper.jpa.Tracking;
+import edu.scrapper.service.TrackingService;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
